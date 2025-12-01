@@ -16,6 +16,24 @@ describe("Timber", () => {
     assert.equal(Timber.treeCount(), 1);
   });
 
+  test("plant(null) should throw", () => {
+    assert.throws(() => {
+      Timber.plant(null);
+    });
+  });
+
+  test("plant(undefined) should throw", () => {
+    assert.throws(() => {
+      Timber.plant(undefined);
+    });
+  });
+
+  test("plant(treeOfSouls) should throw", () => {
+    assert.throws(() => {
+      Timber.plant(Timber.treeOfSouls);
+    });
+  });
+
   test("uproot() should remove one tree", () => {
     const tree = new Tree();
     Timber.plant(tree);
