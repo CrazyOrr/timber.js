@@ -20,12 +20,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/CrazyOrr/timber-js.git"
+    "url": "https://github.com/CrazyOrr/timber.js.git"
   },
   "bugs": {
-    "url": "https://github.com/CrazyOrr/timber-js/issues"
+    "url": "https://github.com/CrazyOrr/timber.js/issues"
   },
-  "homepage": "https://github.com/CrazyOrr/timber-js",
+  "homepage": "https://github.com/CrazyOrr/timber.js",
   "keywords": [
     "log",
     "logger"
