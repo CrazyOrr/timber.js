@@ -1,5 +1,9 @@
 # timber changelog
 
+## 0.2.1 (2025-12-01)
+
+- Change Git repository URL
+
 ## 0.2.0 (2025-11-28)
 
 - Change `Level` to string enum
