@@ -1,3 +1,5 @@
+# timber.js
+
 JavaScript port of Android's [timber](https://github.com/JakeWharton/timber) library.
 
 Behavior is added through `Tree` instances. You can install an instance by calling `Timber.plant()`. Installation of `Tree`s should be done as early as possible.
