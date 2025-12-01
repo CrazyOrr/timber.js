@@ -48,46 +48,43 @@ describe("Timber", () => {
     assert.equal(Timber.treeCount(), 0);
   });
 
-  test("tag() should call setTag() on all trees", (t) => {
-    const trees = [new Tree(), new Tree()];
-    const mockSetTags = trees.map((tree) => t.mock.method(tree, "setTag"));
-    trees.forEach((tree) => Timber.plant(tree));
+  test("tag() should call setTag() on treeOfSouls", (t) => {
+    const mockSetTag = t.mock.method(Timber.treeOfSouls, "setTag");
     const tag = "tag";
 
     Timber.tag(tag);
 
-    mockSetTags.forEach((mockSetTag) => {
-      assert.equal(mockSetTag.mock.callCount(), 1);
-      const call = mockSetTag.mock.calls[0];
-      assert.deepEqual(call.arguments, [tag]);
+    assert.equal(mockSetTag.mock.callCount(), 1);
+    const call = mockSetTag.mock.calls[0];
+    assert.deepEqual(call.arguments, [tag]);
+  });
+
+  test("[level]() should call log()", { concurrency: true }, (t) => {
+    [Level.Debug, Level.Info, Level.Warn, Level.Error].forEach((level) => {
+      t.test(level, () => {
+        const message = "whatever";
+        const mockLog = t.mock.method(Timber, "log");
+
+        Timber[level](message);
+
+        assert.equal(mockLog.mock.callCount(), 1);
+        const call = mockLog.mock.calls[0];
+        assert.deepEqual(call.arguments, [level, message]);
+      });
     });
   });
 
-  test(
-    "[level]() should call [level]() on all trees",
-    { concurrency: true },
-    (t) => {
-      class CustomTree extends Tree {
-        log() {}
-      }
-      [Level.Debug, Level.Info, Level.Warn, Level.Error].forEach((level) => {
-        t.test(level, () => {
-          const trees = [new CustomTree(), new CustomTree()];
-          const mockLevels = trees.map((tree) => t.mock.method(tree, level));
-          trees.forEach((tree) => Timber.plant(tree));
-          const message = "whatever";
+  test("log() should call log() on treeOfSouls", (t) => {
+    const level = Level.Debug,
+      message = "whatever";
+    const mockLogLevel = t.mock.method(Timber.treeOfSouls, level);
 
-          Timber[level](message);
+    Timber.log(level, message);
 
-          mockLevels.forEach((mockLevel) => {
-            assert.equal(mockLevel.mock.callCount(), 1);
-            const call = mockLevel.mock.calls[0];
-            assert.deepEqual(call.arguments, [message]);
-          });
-        });
-      });
-    },
-  );
+    assert.equal(mockLogLevel.mock.callCount(), 1);
+    const call = mockLogLevel.mock.calls[0];
+    assert.deepEqual(call.arguments, [message]);
+  });
 });
 
 describe("Tree", () => {
@@ -203,6 +200,53 @@ describe("Tree", () => {
 
     assert.equal(mockLog.mock.callCount(), 0);
   });
+});
+
+describe("DispatcherTree", () => {
+  afterEach(() => {
+    Timber.uprootAll();
+  });
+
+  test("tag() should call setTag() on all trees", (t) => {
+    const trees = [new Tree(), new Tree()];
+    const mockSetTags = trees.map((tree) => t.mock.method(tree, "setTag"));
+    trees.forEach((tree) => Timber.plant(tree));
+    const tag = "tag";
+
+    Timber.tag(tag);
+
+    mockSetTags.forEach((mockSetTag) => {
+      assert.equal(mockSetTag.mock.callCount(), 1);
+      const call = mockSetTag.mock.calls[0];
+      assert.deepEqual(call.arguments, [tag]);
+    });
+  });
+
+  test(
+    "[level]() should call [level]() on all trees",
+    { concurrency: true },
+    (t) => {
+      class CustomTree extends Tree {
+        log() {}
+      }
+      [Level.Debug, Level.Info, Level.Warn, Level.Error].forEach((level) => {
+        t.test(level, () => {
+          const trees = [new CustomTree(), new CustomTree()];
+          const mockLevels = trees.map((tree) => t.mock.method(tree, level));
+          trees.forEach((tree) => Timber.plant(tree));
+          const message = "whatever";
+
+          Timber[level](message);
+
+          mockLevels.forEach((mockLevel) => {
+            assert.equal(mockLevel.mock.callCount(), 1);
+            const call = mockLevel.mock.calls[0];
+            assert.deepEqual(call.arguments, [message]);
+          });
+        });
+      });
+    },
+  );
 });
 
 describe("DebugTree", () => {

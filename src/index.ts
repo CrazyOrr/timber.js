@@ -153,6 +153,22 @@ class DispatcherTree extends Tree {
     super();
   }
 
+  /**
+   * {@inheritDoc Tree.setTag}
+   *
+   * @override
+   */
+  public setTag(tag: string): void {
+    this.forest.forEach((tree) => {
+      tree.setTag(tag);
+    });
+  }
+
+  /**
+   * {@inheritDoc Tree.log}
+   *
+   * @override
+   */
   protected log(
     level: Level,
     tag?: string,
@@ -268,9 +284,7 @@ export class Timber {
    * @param tag - The tag for logging.
    */
   static tag(tag: string): Tree {
-    Timber.forest.forEach((tree) => {
-      tree.setTag(tag);
-    });
+    Timber.treeOfSouls.setTag(tag);
     return Timber.treeOfSouls;
   }
 
