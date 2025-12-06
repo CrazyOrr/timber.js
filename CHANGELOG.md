@@ -1,5 +1,9 @@
 # timber changelog
 
+## 0.2.2 (2025-12-06)
+
+- Update dependencies
+
 ## 0.2.1 (2025-12-01)
 
 - Change Git repository URL
@@ -20,7 +24,7 @@
 
 ## 0.0.4 (2019-04-11)
 
-- Set the 'types' property in package.json
+- Set the `types` property in package.json
 
 ## 0.0.3 (2019-02-23)
 
