@@ -1,13 +1,15 @@
 {
   "compilerOptions": {
-    "module": "commonjs",
-    "target": "es5",
+    "module": "esnext",
+    "target": "es6",
     "declaration": true,
     "sourceMap": false,
     "declarationMap": true,
+    "rootDir": "./src",
     "outDir": "lib",
     "removeComments": false,
-    "strict": true
+    "strict": true,
+    "forceConsistentCasingInFileNames": true
   },
   "include": ["src/**/*"],
   "exclude": ["node_modules"]
