@@ -1,5 +1,9 @@
 # timber changelog
 
+## 0.3.0 (2026-04-02)
+
+- Change output from es5 commonjs module to es6 module
+
 ## 0.2.2 (2025-12-06)
 
 - Update dependencies
